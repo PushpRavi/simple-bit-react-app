@@ -1,16 +1,12 @@
-runtime: nodejs18
-instance_class: F1
-
-env: standard
+runtime: nodejs10
 
 handlers:
-  - url: /
+  # Serve all static files with URLs ending with a file extension
+  - url: /(.*\..+)$
+    static_files: build/\1
+    upload: build/(.*\..+)$
+
+  # Catch all handler to index.html for client-side routing
+  - url: /.*
     static_files: build/index.html
     upload: build/index.html
-
-  - url: /(.*)
-    static_files: build/\1
-    upload: build/(.*)
-
-  - url: /.*
-    script: auto
